@@ -16,13 +16,24 @@ function App() {
         return wordsArr.filter(word => word !== "").length
     }
 
+    function startGame() {
+        setIsTimeRunning(true)
+        setTimeRemaining(STARTING_TIME)
+        setText("")
+    }
+
+    function endGame() {
+        setIsTimeRunning(false)
+        setWordCount(calculateWordCount(text))
+    }
+
     React.useEffect(() => {
         if(isTimeRunning && timeRemaining > 0) {
             setTimeout(() => {
                 setTimeRemaining(time => time - 1)
             }, 1000)
         } else if(timeRemaining === 0) {
-            setIsTimeRunning(false)
+            endGame()
         }
     }, [timeRemaining, isTimeRunning])
 
@@ -32,12 +43,20 @@ function App() {
             <textarea
                 onChange={handleChange}
                 value={text}
+                disabled={!isTimeRunning}
             />
             <h4>Time remaining: {timeRemaining}</h4>
-            <button disabled={isTimeRunning} onClick={() => setIsTimeRunning(true)}>Start</button>
-            <h1>Word count: ???</h1>
+            <button
+                onClick={startGame}
+                disabled={isTimeRunning}
+            >
+                Start
+            </button>
+            <h1>Word count: {wordCount}</h1>
         </div>
     )
 }
+
+export default App
 
 export default App
