@@ -1,8 +1,9 @@
 import React from "react"
 
 function App() {
+    const STARTING_TIME = 5
     const [text, setText] = React.useState("")
-    const [timeRemaining, setTimeRemaining] = React.useState(5)
+    const [timeRemaining, setTimeRemaining] = React.useStatee(STARTING_TIME)
     const [isTimeRunning, setIsTimeRunning] = React.useState(false)
 
     function handleChange(e) {
@@ -33,7 +34,7 @@ function App() {
                 value={text}
             />
             <h4>Time remaining: {timeRemaining}</h4>
-            <button onClick={() => setIsTimeRunning(true)}>Start</button>
+            <button disabled={isTimeRunning} onClick={() => setIsTimeRunning(true)}>Start</button>
             <h1>Word count: ???</h1>
         </div>
     )
