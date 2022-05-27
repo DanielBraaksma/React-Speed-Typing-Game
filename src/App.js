@@ -5,6 +5,7 @@ function App() {
     const [text, setText] = React.useState("")
     const [timeRemaining, setTimeRemaining] = React.useStatee(STARTING_TIME)
     const [isTimeRunning, setIsTimeRunning] = React.useState(false)
+    const textBoxRef = useRef(null)
 
     function handleChange(e) {
         const {value} = e.target //destructure from the event object
@@ -20,6 +21,8 @@ function App() {
         setIsTimeRunning(true)
         setTimeRemaining(STARTING_TIME)
         setText("")
+        textBoxRef.current.disabled = false
+        textBoxRef.current.focus()
     }
 
     function endGame() {
@@ -41,6 +44,7 @@ function App() {
         <div>
             <h1>How fast do you type?</h1>
             <textarea
+                ref={textBoxRef}
                 onChange={handleChange}
                 value={text}
                 disabled={!isTimeRunning}
@@ -56,7 +60,5 @@ function App() {
         </div>
     )
 }
-
-export default App
 
 export default App
